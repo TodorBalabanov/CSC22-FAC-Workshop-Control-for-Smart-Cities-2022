@@ -36,15 +36,7 @@ Android, distributed computing, volunteer computing
 
 \section{Introduction}
 
-Fast after its appearance mobile distributed computing become a part as state of the art in the soft computing \cite{Angelova-2009-a} and even more with Covid-19 pandemic \cite{Petrov-2021-a}. The ideas applied in the wireless sensor networks \cite{Alexandrov-2016-a} has been influenced the ideas of computations distribution on mobile devices and even integration with IoT \cite{Dineva-2019-a} with smart routing \cite{Tashev-2019-a}. Splitting calculations in heterogeneous devices appears to be efficient in complex problems like combinatorial problems \cite{Borissova-2015-a}. Having calculations on devices under somebody else control \cite{Balabanov-2020-a} except advantages also rises many cybersecurity issues \cite{Dimitrov-2021-a}.
-
-Distributed computing is appropriate for a limited number of computational problems. The main characteristic which the problem should have is the possibility of different calculation steps being calculated separately. Also, it is important that different calculation results have less need for synchronization between the calculating nodes. Parallel implementation of the QuickSort algorithm \cite{Sanders-1997-a}, for example, is not suitable for distributed computing. Splitting of the array between the calculating nodes needs synchronization. The final result of the algorithm needs synchronization too. Problems like parallel QuickSort are more suitable for multiprocessor systems with tight control over calculations and communication. Parallel evolutionary algorithms \cite{Sudholt-2015-a}, on the other side, are appropriate for a very high degree of parallelization and a very low need for synchronization. This fact makes them a perfect candidate for distributed computing even on less powerful mobile devices. 
-
-Most of the evolutionary algorithms are fast computed themselves \cite{Vural-2012-a}. The difficulties come when the target function (fitness function) is computationally time-consuming \cite{Di-Pietro-2004-a}. Most evolutionary algorithms need many calculations of the target function in order to try different candidate solutions. When the target function is very time-consuming so many calculations make the optimization process practically unusable \cite{Lee-2015-a}. 
-
-The paper is organized as follows: Section 1 introduces mobile distributed computing and its specifics; Section 2 presents a practical implementation and the usage of embedded functionality; Section 3 concludes and provides some guidance for further research. 
-
-\section{Android Content Providers}
+Fast after its appearance mobile distributed computing \cite{Bibi-2021-a} become a part as state of the art in the soft computing \cite{Angelova-2009-a} and even more with Covid-19 pandemic \cite{Petrov-2021-a}. The ideas applied in the wireless sensor networks \cite{Alexandrov-2016-a} has been influenced the ideas of computations distribution on mobile devices and even integration with IoT \cite{Dineva-2019-a} with smart routing \cite{Tashev-2019-a}. Splitting calculations in heterogeneous devices \cite{Weinbub-2012-a} appears to be efficient in complex problems like combinatorial problems \cite{Borissova-2015-a}. Having calculations on devices under somebody else control \cite{Balabanov-2020-a} except advantages also rises many cybersecurity issues \cite{Dimitrov-2021-a}.
 
 \begin{figure}
 \begin{center}
@@ -54,7 +46,7 @@ The paper is organized as follows: Section 1 introduces mobile distributed compu
 \end{center}
 \end{figure}
 
-Vitosha Trade Android Client \cite{Balabanov-2016-1} is a distributed computing client application for Android. The project was created during HackTogether competition, held October 1-2, Sofia/Bulgaria, 2016 and it is developing in the Institute of Information and Communication Technologies as part of the Bulgarian Academy of Sciences. The project is doing time-series forecasting by training artificial neural networks with gradient-based methods \cite{Tomov-2021-a} and evolutionary algorithms \cite{Tomov-2021-b}. The forecasting is done on Android mobile devices as background calculations organized with the Android Service component and the active wallpaper capabilities of the operating system \cite{Mateeva-2021-a}. 
+Distributed computing is appropriate for a limited number of computational problems. The main characteristic which the problem should have is the possibility of different calculation steps being calculated separately \cite{Hillis-1986-a}. Also, it is important that different calculation results have less need for synchronization between the calculating nodes. Parallel implementation of the QuickSort algorithm \cite{Sanders-1997-a}, for example, is not suitable for distributed computing. Splitting of the array between the calculating nodes needs synchronization. The final result of the algorithm needs synchronization too. Problems like parallel QuickSort are more suitable for multiprocessor systems with tight control over calculations and communication. Parallel evolutionary algorithms \cite{Sudholt-2015-a}, on the other side, are appropriate for a very high degree of parallelization and a very low need for synchronization. This fact makes them a perfect candidate for distributed computing even on less powerful mobile devices. 
 
 \begin{figure}
 \begin{center}
@@ -63,6 +55,14 @@ Vitosha Trade Android Client \cite{Balabanov-2016-1} is a distributed computing 
 \label{fig0002}
 \end{center}
 \end{figure}
+
+Most of the evolutionary algorithms are fast computed themselves \cite{Vural-2012-a}. The difficulties come when the target function (fitness function) is computationally time-consuming \cite{Di-Pietro-2004-a}. Most evolutionary algorithms need many calculations of the target function \cite{Shi-2010-a} in order to try different candidate solutions. When the target function is very time-consuming so many calculations make the optimization process practically unusable \cite{Lee-2015-a}. In the distributed versions of evolutionary algorithms, a global population is kept on the server-side \cite{Gong-2015-a}. Local populations can evolve for a long time without server synchronization \cite{Balabanov-2016-a}. 
+
+The paper is organized as follows: Section 1 introduces mobile distributed computing and its specifics; Section 2 presents a practical implementation and the usage of embedded functionality; Section 3 concludes and provides some guidance for further research. 
+
+\section{Android Content Providers}
+
+Vitosha Trade Android Client \cite{Balabanov-2022-a} is a distributed computing client application for Android. The project was created during HackTogether competition, held October 1-2, Sofia/Bulgaria, 2016 and it is developing in the Institute of Information and Communication Technologies as part of the Bulgarian Academy of Sciences. The project is doing time-series forecasting by training artificial neural networks with gradient-based methods \cite{Tomov-2021-a} and evolutionary algorithms \cite{Tomov-2021-b}. The forecasting is done on Android mobile devices as background calculations organized with the Android Service component and the Live Wallpaper capabilities of the operating system \cite{Mateeva-2021-a}. 
 
 The system is organized on the client-server principle. Time series are presented on a lightweight web server (Fig. \ref{fig0001}). Each mobile device connects to the server through the Internet and obtains calculation packages. The communication is done over HTTP/JSON protocol (Fig. \ref{fig0002}). Training of the artificial neural networks is done in a separate forecasting module (Fig. \ref{fig0003}). Such separation is very useful for multi-interface implementation. Not only is the rich graphical interface of Android OS, but the system also supports a simplified command-line interface. In this way, machine learning algorithms can be evaluated outside of the complicated Android environment simply running desktop command-line implementation. 
 
@@ -74,7 +74,15 @@ The system is organized on the client-server principle. Time series are presente
 \end{center}
 \end{figure}
 
-Inside the Android module of the system, there is another separation according to data flow needs. The forecasting engine module is called in the background by the Android Service component. This action is done on idle usage of the mobile device. During artificial neural networks training, time series are disassembled on training examples (Fig. \ref{fig0004}). Cycles of gradient-based and evolutionary optimization over the network's weights are performed (Fig. \ref{fig0005}). At the end of each training session, a forecast is generated. At this point, Android Content Providers come in place. Such a Content Provider is used for storing the generated forecast inside the local SQLite database. The visualization part of the system is organized as Live Wallpaper and Widgets.
+Inside the Android module of the system, there is another separation according to data flow needs. The forecasting engine module is called in the background by the Android Service component. This action is done on idle usage of the mobile device. During artificial neural networks training, time series (Fig. \ref{fig0006}) are disassembled on training examples (Fig. \ref{fig0004}). All values are normalized in the range of the activation function used inside the artificial neural network. A very promising approach for normalization appears to be scaling maximum values to half of the maximum activation level and minimum values to half of the minimum activation. Such scaling prevents the artificial neural network from over signaling at the input and also gives a chance to the artificial neural network to predict twice higher or twice lower future values according to historical known ups and downs. Cycles of gradient-based and evolutionary optimization over the network's weights are performed (Fig. \ref{fig0005}). The application of gradient-based training can be accepted as an additional operator in the recombination process in evolutionary algorithms. At the end of each training session, a forecast is generated. At this point, Android Content Providers come in place. Such a Content Provider is used for storing the generated forecast inside the local SQLite database. The visualization part of the system is organized as Live Wallpaper and Widgets. Widgets are much more flexible than the Live Wallpapers. A very common characteristic of Android Widgets is that more than one instance can be placed on the user's desktop. Widgets, as consumers of information, are better to be supplied from a single source as Content Provider. Forecast generation is relatively slow. A graphical user interface is very sensitive when time-consuming calculations are run. In order, for the blocking of the user interface to be excepted, Content Provider is involved as a buffer for fast data access.
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=8.4cm]{images/fig0006}
+\caption{Time series} 
+\label{fig0006}
+\end{center}
+\end{figure}
 
 \begin{figure}
 \begin{center}
@@ -84,6 +92,8 @@ Inside the Android module of the system, there is another separation according t
 \end{center}
 \end{figure}
 
+The Live Wallpaper shows three types of information that separately can be visualized in single widgets. The first area is for the time series ticker and time interval. The second area is a simplified topology of the artificial neural network. The third area is a simplified time series forecast. Most of the visualization is pixel drawing. For better efficiency and for unified data access Android Content Providers are used once again. Forecast generation appears asynchronously. That is why it is very rational for the forecast to be stored by Content Provider immediately after its generation and to be obtained by Content Provider each time when visualization is needed. 
+
 \begin{figure}
 \begin{center}
 \includegraphics[width=8.4cm]{images/fig0005}
@@ -92,9 +102,15 @@ Inside the Android module of the system, there is another separation according t
 \end{center}
 \end{figure}
 
-The Live Wallpaper shows three types of information. The first area is for the time series ticker and time interval.  The second area is a simplified topology of the artificial neural network. The third area is a simplified time series forecast. All these areas are available as visual widgets. Most of the visualization is pixel drawing. For better efficiency and for unified data access Android Content Providers are used once again. Forecast generation is a time-consuming process and appears asynchronously. That is why it is very rational for the forecast to be stored by Content Provider immediately after its generation and to be obtained by Content Provider each time when visualization is needed. 
+Voting capabilities of the system are the third place where Content Providers come in place. Voting (Fig. \ref{fig0007}) is part of human-computer distributed computing \cite{Tomov-2019-a}. There are some computation tasks that are not possible for modern computational devices. Subjective opinion for beauty is such a task. Human intuition is also not possible with modern computers. For optimization problems where human-specific evaluation is needed the only option is a combination between computers and humans in distributed computing. The user has a separate Android Widget for its voting. Pressing the arrow-up or arrow-down the vote is handled by the Content Provider. The Content Provider helps with the voting control because the user is allowed to vote only once in a particular time series interval. 
 
-Voting capabilities of the system are the third place where Content Providers come in place. Voting is part of human-computer distributed computing \cite{Tomov-2019-a}. The user has a separate Android Widget for its voting. Pressing the arrow-up or arrow-down the vote is handled by the Content Provider. The Content Provider helps with the voting control because the user is allowed to vote only once in a particular time series interval. 
+\begin{figure}
+\begin{center}
+\includegraphics[width=8.4cm]{images/fig0007}
+\caption{Visualization and voting} 
+\label{fig0007}
+\end{center}
+\end{figure}
 
 \section{Conclusion}
 
